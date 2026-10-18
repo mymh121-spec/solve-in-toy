@@ -1,0 +1,46 @@
+:root {
+  color-scheme: light;
+  background: #fff;
+}
+
+html,
+body {
+  background: #fff !important;
+}
+
+body::after {
+  content: none !important;
+  background: none !important;
+}
+
+.shortcut-mode-overlay {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 50;
+  width: min(560px, calc(100vw - 44px));
+  padding: 16px 20px 12px;
+  overflow: hidden;
+  border: 1px solid rgba(73, 234, 255, .5);
+  border-radius: 18px;
+  color: #eafcff;
+  background: radial-gradient(circle at 76% 40%, rgba(73, 234, 255, .18), transparent 45%), rgba(5, 14, 20, .94);
+  box-shadow: 0 20px 55px rgba(0, 0, 0, .42);
+  backdrop-filter: blur(12px);
+  animation: shortcut-overlay-in .22s ease-out;
+}
+
+.shortcut-mode-overlay[hidden] { display: none; }
+.shortcut-mode-overlay p { margin: 0; color: #63e6d3; font: 800 .7rem ui-monospace, monospace; letter-spacing: .16em; }
+.shortcut-mode-overlay strong { display: block; margin-top: 4px; font: 750 1rem system-ui, sans-serif; }
+.shortcut-mode-overlay img { display: block; width: 100%; max-height: 180px; object-fit: contain; margin-top: 4px; filter: drop-shadow(0 14px 22px rgba(0, 0, 0, .5)); }
+
+@keyframes shortcut-overlay-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 640px) {
+  .shortcut-mode-overlay { right: 12px; bottom: 12px; width: calc(100vw - 24px); }
+  .shortcut-mode-overlay img { max-height: 125px; }
+}

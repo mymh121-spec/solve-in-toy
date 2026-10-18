@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#071018">
+  <title>NU Motion Console</title>
+  <link rel="stylesheet" href="/static/styles.css">
+  <link rel="stylesheet" href="/static/navigation.css">
+</head>
+<body>
+  <nav class="motion-nav" aria-label="모션 페이지">
+    <a class="brand" href="/">NU MOTION</a>
+    <div>
+      <a class="active" href="/">대시보드</a>
+      <a href="/lightsaber">광선검</a>
+      <a href="/tennis">테니스</a>
+      <a href="/gun">총</a>
+      <a href="/fishing">낚싯대</a>
+    </div>
+  </nav>
+  <main>
+    <header>
+      <div>
+        <p class="eyebrow">NUCODE · 6-DOF LIVE TELEMETRY</p>
+        <h1>Motion Console</h1>
+        <p class="subtitle">두 손의 움직임을 실시간으로 확인하고 영점을 맞춥니다.</p>
+      </div>
+      <div class="server-state"><i id="serverDot"></i><span id="serverText">서버 연결 중</span></div>
+    </header>
+
+    <section class="experience-panel" aria-label="모션 체험 선택">
+      <div class="section-heading">
+        <div><p class="eyebrow">MOTION EXPERIENCES</p><h2>연결된 자이로로 체험하기</h2></div>
+        <span>페이지를 바꿔도 센서 연결과 자세 값은 유지됩니다.</span>
+      </div>
+      <div class="experience-grid">
+        <a class="experience-card saber" href="/lightsaber"><span>01</span><strong>광선검</strong><small>LIGHTSABER</small></a>
+        <a class="experience-card tennis" href="/tennis"><span>02</span><strong>테니스 라켓</strong><small>IMU RACKET</small></a>
+        <a class="experience-card gun" href="/gun"><span>03</span><strong>총</strong><small>SCI-FI BLASTER</small></a>
+        <a class="experience-card fishing" href="/fishing"><span>04</span><strong>낚싯대</strong><small>IMU FISHING ROD</small></a>
+      </div>
+    </section>
+
+    <section id="shortcutVisual" class="shortcut-visual" aria-live="polite" hidden>
+      <div>
+        <p class="eyebrow">SHORTCUT MODE</p>
+        <h2>제스처 단축키 입력</h2>
+        <span id="shortcutBoards">키보드 입력 모드 활성화</span>
+      </div>
+      <img src="/static/keyboard-shortcut.png" alt="단축키 모드를 나타내는 검은색 키보드">
+    </section>
+
+    <section class="connection-panel" aria-label="시리얼 연결">
+      <div class="connection-copy">
+        <p class="eyebrow">SERIAL CONNECTION</p>
+        <strong>센서 포트 연결</strong>
+        <span id="connectionMessage">USB 직렬 장치를 우선 선택합니다. 확인 후 CONNECT를 누르세요.</span>
+      </div>
+      <div class="connection-controls">
+        <select id="portSelect" aria-label="COM 포트"><option value="">포트 검색 중…</option></select>
+        <select id="baudSelect" aria-label="통신 속도"><option value="115200">115200 baud</option></select>
+        <button id="refreshPorts" class="secondary" type="button">새로고침</button>
+        <button id="connectPort" type="button">CONNECT</button>
+        <button id="disconnectPort" class="danger" type="button" disabled>DISCONNECT</button>
+      </div>
+      <div id="activeConnections" class="active-connections"></div>
+    </section>
+
+    <section class="toolbar" aria-label="대시보드 도구">
+      <div>
+        <strong>보드 자체에서 영점을 계산합니다.</strong>
+        <span>센서를 바닥에 평평하게 놓고 누르세요. 보드는 자이로 편차를 보정하고, 현재 자세는 화면의 0° 기준으로 설정됩니다.</span>
+      </div>
+      <button id="alignAll" type="button">양손 보드 영점 보정</button>
+    </section>
+
+    <section id="boards" class="board-grid" aria-live="polite"></section>
+
+    <section class="chart-panel">
+      <div class="section-heading">
+        <div><p class="eyebrow">GYROSCOPE</p><h2>실시간 회전 속도</h2></div>
+        <div class="legend"><span class="x">X</span><span class="y">Y</span><span class="z">Z</span></div>
+      </div>
+      <canvas id="gyroChart" height="260" aria-label="자이로 실시간 그래프"></canvas>
+    </section>
+
+    <footer><span>Serial / Wi-Fi JSON Bridge</span><span id="packetRate">0 packets/s</span></footer>
+  </main>
+  <div id="toast" role="status"></div>
+  <script src="/static/app.js"></script>
+</body>
+</html>
